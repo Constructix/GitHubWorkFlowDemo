@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{287F5A2D-8EF1-43EA-A83E-8DEAD72CA01B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Constructix_OnLineServices_Functions_GetSuppliers", "src\Constructix.OnLineServices.Functions.GetSuppliers\Constructix_OnLineServices_Functions_GetSuppliers.csproj", "{1DB94D91-E922-4D76-9EF6-39ADA03A8510}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{FFA5CFE2-C292-49A2-B52C-EBBFDBB29DD1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Constructix.OnLineServices.Functions.GetSuppliers.Tests", "tests\Constructix.OnLineServices.Functions.GetSuppliers.Tests\Constructix.OnLineServices.Functions.GetSuppliers.Tests.csproj", "{9A69A756-11E8-4EA3-AD7F-506C0F4860F2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1DB94D91-E922-4D76-9EF6-39ADA03A8510}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DB94D91-E922-4D76-9EF6-39ADA03A8510}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DB94D91-E922-4D76-9EF6-39ADA03A8510}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DB94D91-E922-4D76-9EF6-39ADA03A8510}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A69A756-11E8-4EA3-AD7F-506C0F4860F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A69A756-11E8-4EA3-AD7F-506C0F4860F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A69A756-11E8-4EA3-AD7F-506C0F4860F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A69A756-11E8-4EA3-AD7F-506C0F4860F2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1DB94D91-E922-4D76-9EF6-39ADA03A8510} = {287F5A2D-8EF1-43EA-A83E-8DEAD72CA01B}
+		{9A69A756-11E8-4EA3-AD7F-506C0F4860F2} = {FFA5CFE2-C292-49A2-B52C-EBBFDBB29DD1}
+	EndGlobalSection
+EndGlobal
