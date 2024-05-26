@@ -68,6 +68,22 @@ jobs:
         template: ./main.bicep
         parameters: 'storagePrefix=rjmystore storageSKU=Standard_LRS'
         failOnStdErr: false
+    - name: Deploy Function  File
+      uses: azure/arm-deploy@v1
+      with:
+        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+        resourceGroupName: ${{ secrets.AZURE_RG }}
+        template: ./Deployment/Armtemplates/CreateFunction.bicep
+        parameters: ./Deployment/Armtemplates/function-dev-parameters.json
+        failOnStdErr: false
+    # deploy function
+    - name: 'Run Azure Functions Action'
+      uses: Azure/functions-action@v1
+      id: fa
+      with:
+        app-name: 'fa-constructix-onlineservices-getsuppliers'
+        slot-name: 'production'
+        package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
 
 
 
