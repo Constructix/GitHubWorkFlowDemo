@@ -1,0 +1,51 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "subscriptionId": {
+            "value": "fa7941a8-d614-416c-8bae-6e4a36930017"
+        },
+        "name": {
+            "value": "fa-constructix-onlineservices-getsuppliers"
+        },
+        "location": {
+            "value": "Australia East"
+        },
+        "ftpsState": {
+            "value": "FtpsOnly"
+        },
+        "storageAccountName": {
+            "value": "sadevaeconstructixs01"
+        },
+        "sku": {
+            "value": "Dynamic"
+        },
+        "skuCode": {
+            "value": "Y1"
+        },
+        "workerSize": {
+            "value": "0"
+        },
+        "workerSizeId": {
+            "value": "0"
+        },
+        "numberOfWorkers": {
+            "value": "1"
+        },
+        "use32BitWorkerProcess": {
+            "value": false
+        },
+        "netFrameworkVersion": {
+            "value": "v8.0"
+        },
+        "hostingPlanName": {
+            "value": "ASP-rgconstructixdevae01-ac67"
+        },
+        "serverFarmResourceGroup": {
+            "value": "rg-constructix-dev-ae-01"
+        },
+        "alwaysOn": {
+            "value": false
+        }
+    }
+}
