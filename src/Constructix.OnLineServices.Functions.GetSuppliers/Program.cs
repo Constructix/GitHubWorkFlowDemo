@@ -29,6 +29,10 @@ List<Supplier> BuildSupplierList()
         new Supplier("Lobb St Saw mill", new Address("Unit 2/2083 Sandgate Rd", "Virginia ", "4014"),
             "(07)30735325",
             "https://brisbanebuildingproducts.com.au/",
+            "Hours: \nSunday\tClosed\nMonday\t5:30\u202fam–3\u202fpm\nTuesday\t5:30\u202fam–3\u202fpm\nWednesday\t5:30\u202fam–3\u202fpm\nThursday\t5:30\u202fam–3\u202fpm\nFriday\t5:30–10:30\u202fam\nSaturday\tClosed"),
+        new Supplier("Bunnings West Ipswich", new Address("Unit 2/2083 Sandgate Rd", "Virginia ", "4014"),
+            "(07)30735325",
+            "https://brisbanebuildingproducts.com.au/",
             "Hours: \nSunday\tClosed\nMonday\t5:30\u202fam–3\u202fpm\nTuesday\t5:30\u202fam–3\u202fpm\nWednesday\t5:30\u202fam–3\u202fpm\nThursday\t5:30\u202fam–3\u202fpm\nFriday\t5:30–10:30\u202fam\nSaturday\tClosed")
 
     ];
