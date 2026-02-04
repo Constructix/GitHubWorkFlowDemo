@@ -13,6 +13,10 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.2" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Constructix.OnlineServices.Models\Constructix.OnlineServices.Models.csproj" />
+    <ProjectReference Include="..\..\Constructix.OnlineServices.Services\Constructix.OnlineServices.Services.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <None Update="host.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

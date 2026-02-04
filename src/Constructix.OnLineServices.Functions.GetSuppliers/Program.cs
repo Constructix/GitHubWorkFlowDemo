@@ -1,4 +1,5 @@
 using System.Runtime.CompilerServices;
+using Constructix.OnlineServices.Models;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,8 +14,6 @@ var host = new HostBuilder()
         services.AddScoped<ISupplierService, SupplierService>();
     })
     .Build();
-
-
 List<Supplier> BuildSupplierList()
 {
     return
@@ -34,11 +33,6 @@ List<Supplier> BuildSupplierList()
 
     ];
 }
-
-
-
-
-
 
 host.Run();
 
