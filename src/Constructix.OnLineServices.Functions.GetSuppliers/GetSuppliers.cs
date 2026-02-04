@@ -5,17 +5,16 @@ using Microsoft.Extensions.Logging;
 
 namespace Constructix.OnLineServices.Functions.GetSuppliers
 {
-    public class GetSuppliers
+    public class GetSuppliers(ISupplierService supplierService, ILogger<GetSuppliers> _logger)
     {
-        private readonly ILogger _logger;
-
-        public GetSuppliers(ILoggerFactory loggerFactory)
-        {
-            _logger = loggerFactory.CreateLogger<GetSuppliers>();
-        }
+        
+        //public GetSuppliers(ILoggerFactory loggerFactory)
+        //{
+        //    _logger = loggerFactory.CreateLogger<GetSuppliers>();
+        //}
 
         [Function("GetSuppliers")]
-        public HttpResponseData Run([HttpTrigger(AuthorizationLevel.Function, "get", "post")] HttpRequestData req)
+        public async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post")] HttpRequestData req)
         {
             _logger.LogInformation("C# HTTP trigger function processed a request.");
 
@@ -24,26 +23,32 @@ namespace Constructix.OnLineServices.Functions.GetSuppliers
 
             //response.WriteString("Welcome to Azure Functions!");
 
-            var allSuppliers = GetAllSuppliers();
+            var allSuppliers = await supplierService.GetAllSuppliersAsync(); 
             var getAllSuppliersResponse = new GetAllSuppliersResponse(allSuppliers.Count,  1,  1,  allSuppliers);
             response.WriteAsJsonAsync(getAllSuppliersResponse);
 
             return response;
         }
         
-        private List<Supplier> GetAllSuppliers()
-        {
-            return new List<Supplier>
-            {
-                new Supplier("Builders Discount Warehouse", new Address("3437 Pacific Hwy", "Slacks Creek", "4127"), "(07)32082240",
-                    "https://buildersdiscountwarehouse.com.au/", string.Empty),
-                new Supplier("Brisbane Building Products", new Address("Unit 2/2083 Sandgate Rd", "Virginia ", "4014"), "(07)30735325",
-                    "https://brisbanebuildingproducts.com.au/", "Hours: \nSunday\tClosed\nMonday\t5:30\u202fam–3\u202fpm\nTuesday\t5:30\u202fam–3\u202fpm\nWednesday\t5:30\u202fam–3\u202fpm\nThursday\t5:30\u202fam–3\u202fpm\nFriday\t5:30–10:30\u202fam\nSaturday\tClosed")
-                
-            };
-        }
+       
     }
 }
+
+public interface ISupplierService
+{
+    Task<List<Supplier>> GetAllSuppliersAsync();
+}
+
+public class SupplierService(List<Supplier> suppliers) : ISupplierService
+{
+
+
+    public async Task<List<Supplier>> GetAllSuppliersAsync()
+    {
+        return await Task.FromResult(suppliers);
+    }
+}
+
 
 public record GetAllSuppliersResponse(int Total, int TotalPages, int PageNum, List<Supplier> Suppliers);
 
