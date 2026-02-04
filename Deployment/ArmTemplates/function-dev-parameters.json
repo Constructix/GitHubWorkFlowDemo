@@ -43,9 +43,6 @@
         },
         "serverFarmResourceGroup": {
             "value": "rg-constructix-dev-ae-01"
-        },
-        "alwaysOn": {
-            "value": false
         }
     }
 }

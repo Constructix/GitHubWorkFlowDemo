@@ -12,7 +12,7 @@ param workerSizeId string
 param numberOfWorkers string
 param hostingPlanName string
 param serverFarmResourceGroup string
-param alwaysOn bool
+
 
 var contentShare = 'fa-constructix-onlineservices-getsuppliersb0d1'
 
