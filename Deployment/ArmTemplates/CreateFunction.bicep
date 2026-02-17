@@ -41,7 +41,7 @@ resource hostingPlan 'Microsoft.Web/serverfarms@2024-11-01' = {
   }
  sku: {
     name: 'FC1'
-    tier: 'FlexConsumption'
+    tier: sku
     size: 'FC1'
     family: 'FC'
     capacity: 0

@@ -17,9 +17,9 @@
         "storageAccountName": {
             "value": "sadevaeconstructixs01"
         },
-        "sku": {
-            "value": "Flex"
-        },
+      "sku": {
+        "value": "FlexConsumption"
+      },
       "skuCode": {
         "value": "FC1"
       },
