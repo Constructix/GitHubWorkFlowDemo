@@ -17,6 +17,55 @@ param serverFarmResourceGroup string
 
 var contentShare = 'fa-constructix-onlineservices-getsuppliersb0d1'
 
+resource hostingPlan 'Microsoft.Web/serverfarms@2024-11-01' = {
+  name: hostingPlanName
+  location: location
+  kind: ''
+   tags: {
+    Company: 'Constructix'
+    Environment: 'dev'
+    Project: 'Constructix Online Services'
+  }
+  properties: {
+      perSiteScaling: false
+    elasticScaleEnabled: false
+    maximumElasticWorkerCount: 1
+    isSpot: false
+    reserved: true
+    isXenon: false
+    hyperV: false
+    targetWorkerCount: 0
+    targetWorkerSizeId: 0
+    zoneRedundant: false
+    asyncScalingEnabled: false
+  }
+ sku: {
+    name: 'FC1'
+    tier: 'FlexConsumption'
+    size: 'FC1'
+    family: 'FC'
+    capacity: 0
+  }
+  dependsOn: []
+}
+
+resource storageAccount 'Microsoft.Storage/storageAccounts@2022-05-01' = {
+  name: storageAccountName
+  location: location
+  tags: {}
+  sku: {
+    name: 'Standard_LRS'
+    
+    
+  }
+  properties: {
+    supportsHttpsTrafficOnly: true
+    minimumTlsVersion: 'TLS1_2'
+    defaultToOAuthAuthentication: true
+  }
+}
+
+
 resource name_resource 'Microsoft.Web/sites@2022-03-01' = {
   name: name
   kind: 'functionapp'
@@ -67,7 +116,7 @@ resource name_resource 'Microsoft.Web/sites@2022-03-01' = {
     serverFarmId: '/subscriptions/${subscriptionId}/resourcegroups/${serverFarmResourceGroup}/providers/Microsoft.Web/serverfarms/${hostingPlanName}'
   }
   dependsOn: [
-    hostingPlan
+    hostingPlan, storageAccount
   ]
 }
 
@@ -87,36 +136,6 @@ resource name_ftp 'Microsoft.Web/sites/basicPublishingCredentialsPolicies@2022-0
   }
 }
 
-resource hostingPlan 'Microsoft.Web/serverfarms@2018-11-01' = {
-  name: hostingPlanName
-  location: location
-  kind: ''
-  tags: {}
-  properties: {
-    name: hostingPlanName
-    workerSize: workerSize
-    workerSizeId: workerSizeId
-    numberOfWorkers: numberOfWorkers
-  }
-  sku: {
-    tier: sku
-    name: skuCode
-  }
-  dependsOn: []
-}
 
-resource storageAccount 'Microsoft.Storage/storageAccounts@2022-05-01' = {
-  name: storageAccountName
-  location: location
-  tags: {}
-  sku: {
-    name: 'Standard_LRS'
-    
-    
-  }
-  properties: {
-    supportsHttpsTrafficOnly: true
-    minimumTlsVersion: 'TLS1_2'
-    defaultToOAuthAuthentication: true
-  }
-}
+
+
