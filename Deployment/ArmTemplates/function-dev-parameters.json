@@ -18,11 +18,11 @@
             "value": "sadevaeconstructixs01"
         },
         "sku": {
-            "value": "Dynamic"
+            "value": "Flex"
         },
-        "skuCode": {
-            "value": "Y1"
-        },
+      "skuCode": {
+        "value": "FC1"
+      },
         "workerSize": {
             "value": "0"
         },
@@ -34,7 +34,7 @@
         },
         "use32BitWorkerProcess": {
             "value": false
-        },      
+        },
       "linuxFxVersion": {
         "value": "DOTNET-ISOLATED|10.0"
       },

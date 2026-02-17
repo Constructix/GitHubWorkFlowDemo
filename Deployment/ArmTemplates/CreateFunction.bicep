@@ -56,8 +56,8 @@ resource name_resource 'Microsoft.Web/sites@2022-03-01' = {
           'https://portal.azure.com'
         ]
       }
-      use32BitWorkerProcess: use32BitWorkerProcess
-      ftpsState: ftpsState
+      use32BitWorkerProcess                             : use32BitWorkerProcess
+      ftpsState                                         : ftpsState
       linuxFxVersion                                    : linuxFxVersion
     }
     clientAffinityEnabled: false
@@ -111,6 +111,8 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2022-05-01' = {
   tags: {}
   sku: {
     name: 'Standard_LRS'
+    
+    
   }
   properties: {
     supportsHttpsTrafficOnly: true
