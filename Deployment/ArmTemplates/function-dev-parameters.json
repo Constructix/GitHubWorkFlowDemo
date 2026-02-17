@@ -39,7 +39,7 @@
         "value": "DOTNET-ISOLATED|10.0"
       },
         "hostingPlanName": {
-            "value": "ASP-rgconstructixdevae01-ac67"
+            "value": "ASPconstructixOnlineSvcAeDev001"
         },
         "serverFarmResourceGroup": {
             "value": "rg-constructix-dev-ae-01"
