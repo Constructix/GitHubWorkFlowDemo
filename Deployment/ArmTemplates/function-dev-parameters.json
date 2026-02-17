@@ -34,10 +34,10 @@
         },
         "use32BitWorkerProcess": {
             "value": false
-        },
-        "netFrameworkVersion": {
-            "value": "v8.0"
-        },
+        },      
+      "linuxFxVersion": {
+        "value": "DOTNET-ISOLATED|10.0"
+      },
         "hostingPlanName": {
             "value": "ASP-rgconstructixdevae01-ac67"
         },

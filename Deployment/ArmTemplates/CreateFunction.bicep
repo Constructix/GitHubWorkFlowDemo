@@ -4,7 +4,8 @@ param location string
 param use32BitWorkerProcess bool
 param ftpsState string
 param storageAccountName string
-param netFrameworkVersion string
+
+param linuxFxVersion string
 param sku string
 param skuCode string
 param workerSize string
@@ -57,7 +58,7 @@ resource name_resource 'Microsoft.Web/sites@2022-03-01' = {
       }
       use32BitWorkerProcess: use32BitWorkerProcess
       ftpsState: ftpsState
-      netFrameworkVersion: netFrameworkVersion
+      linuxFxVersion                                    : linuxFxVersion
     }
     clientAffinityEnabled: false
     virtualNetworkSubnetId: null
