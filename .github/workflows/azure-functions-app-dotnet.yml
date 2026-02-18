@@ -80,21 +80,20 @@ jobs:
     - name: 'Deploy using Azure CLI'
       uses: azure/cli@v2
       with:
-      azcliversion: latest
-      inlineScript: |
-        cd ./src/Constructix.OnLineServices.Functions.GetSuppliers
-        dotnet publish -c Release -o ./publish-output
+        azcliversion: latest
+        inlineScript: |
+          cd ./src/Constructix.OnLineServices.Functions.GetSuppliers
+          dotnet publish -c Release -o ./publish-output
       
-        # Create deployment package
-        cd publish-output
-        zip -r ../../deployment.zip *
-        cd ../..
-      
-        # Deploy to function app
-        az functionapp deployment source config-zip \
-          --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} \
-          --name ${{ vars.AZURE_FUNCTIONAPP_NAME }} \
-          --src deployment.zip
+          # Create deployment package
+          cd publish-output
+          zip -r ../../deployment.zip *
+          cd ../..      
+          # Deploy to function app
+          az functionapp deployment source config-zip \
+            --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} \
+            --name ${{ vars.AZURE_FUNCTIONAPP_NAME }} \
+            --src deployment.zip
     # deploy function
     # - name: 'Run Azure Functions Action'
     #   uses: Azure/functions-action@v1
