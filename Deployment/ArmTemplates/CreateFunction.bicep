@@ -71,7 +71,7 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2022-05-01' = {
 
 resource name_resource 'Microsoft.Web/sites@2022-03-01' = {
   name: name
-  kind: 'functionapp'
+  kind: 'functionapp,linux'
   location: location
   tags: {}
   properties: {
@@ -112,6 +112,17 @@ resource name_resource 'Microsoft.Web/sites@2022-03-01' = {
       ftpsState                                         : ftpsState
       linuxFxVersion                                    : linuxFxVersion
     }
+    functionAppConfig: {
+      deployment: {
+        storage: {
+          type: 'blobcontainer'
+          value: 'https://sadevaeconstructixs01.blob.core.windows.net/app-package-testdev'
+          authentication: {
+            type: 'storageaccountconnectionstring'
+            storageAccountConnectionStringName: 'DEPLOYMENT_STORAGE_CONNECTION_STRING'
+          }
+        }
+      }
     clientAffinityEnabled: false
     virtualNetworkSubnetId: null
     publicNetworkAccess: 'Enabled'

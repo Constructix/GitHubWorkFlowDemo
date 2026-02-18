@@ -9,15 +9,15 @@ namespace Constructix.OnLineServices.Functions.GetSuppliers
     public class GetSuppliers(ISupplierService supplierService, ILogger<GetSuppliers> _logger)
     {
         [Function("GetSuppliers")]
-        public async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post")] HttpRequestData req)
+        public async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Function, "get")] HttpRequestData req)
         {
-            _logger.LogInformation("GetSuppliers HTTP trigger function processed a request.");
+            _logger.LogInformation("GetSuppliers HTTP trigger Activated.");
 
             var response = req.CreateResponse(HttpStatusCode.OK);
             var allSuppliers = await supplierService.GetAllSuppliersAsync(); 
             var getAllSuppliersResponse = new GetAllSuppliersResponse(allSuppliers.Count,  1,  1,  allSuppliers);
             await response.WriteAsJsonAsync(getAllSuppliersResponse);
-
+            _logger.LogInformation("GetSuppliers HTTP trigger Completed.");
             return response;
         }
     }
