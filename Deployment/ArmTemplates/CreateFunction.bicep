@@ -5,12 +5,12 @@ param use32BitWorkerProcess bool
 param ftpsState string
 param storageAccountName string
 
-param linuxFxVersion string
+
 param sku string
 param skuCode string
 param workerSize string
 param workerSizeId string
-param numberOfWorkers string
+
 param hostingPlanName string
 param serverFarmResourceGroup string
 
@@ -68,7 +68,7 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2022-05-01' = {
   dependsOn: [hostingPlan]
 }
 
-resource name_resource 'Microsoft.Web/sites@2022-03-01' = {
+resource name_resource 'Microsoft.Web/sites@2023-12-01' = {
   name: name
   kind: 'functionapp,linux'
   location: location

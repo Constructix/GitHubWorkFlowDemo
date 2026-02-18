@@ -29,14 +29,9 @@
     "workerSizeId": {
       "value": "0"
     },
-    "numberOfWorkers": {
-      "value": "1"
-    },
+
     "use32BitWorkerProcess": {
       "value": false
-    },
-    "linuxFxVersion": {
-      "value": "DOTNET-ISOLATED|10.0"
     },
     "hostingPlanName": {
       "value": "ASPconstructixOnlineSvcAeDev001"
