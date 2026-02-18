@@ -22,10 +22,12 @@ on:
   push:
     branches: ["main"]
 env:
-  AZURE_FUNCTIONAPP_NAME: 'GetSuppliers'   # set this to your function app name on Azure
+  AZURE_FUNCTIONAPP_NAME: 'fa-constructix-onlineservices-getsuppliers'   # set this to your function app name on Azure
   AZURE_FUNCTIONAPP_PACKAGE_PATH: '.\src\Constructix.OnLineServices.Functions.GetSuppliers\'       # set this to the path to your function app project, defaults to the repository root
   AZURE_FUNCTIONAPP_TEST_PATH: '.\tests\Constructix.OnLineServices.Functions.GetSuppliers.Tests\Constructix.OnLineServices.Functions.GetSuppliers.Tests.csproj'
   DOTNET_VERSION: '10.0.x'                   # set this to the dotnet version to use (e.g. '2.1.x', '3.1.x', '5.0.x')
+  AZURE_RESOURCE_GROUP: 'rg-constructix-dev-ae-01'
+
 
 jobs:
   build-and-deploy:
@@ -75,14 +77,32 @@ jobs:
         template: ./Deployment/Armtemplates/CreateFunction.bicep
         parameters: ./Deployment/Armtemplates/function-dev-parameters.json
         failOnStdErr: false
-    # deploy function
-    - name: 'Run Azure Functions Action'
-      uses: Azure/functions-action@v1
-      id: fa
+    - name: 'Deploy using Azure CLI'
+      uses: azure/cli@v2
       with:
-        app-name: 'fa-constructix-onlineservices-getsuppliers'
-        slot-name: 'production'
-        package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
+      azcliversion: latest
+      inlineScript: |
+        cd ./src/Constructix.OnLineServices.Functions.GetSuppliers
+        dotnet publish -c Release -o ./publish-output
+      
+        # Create deployment package
+        cd publish-output
+        zip -r ../../deployment.zip *
+        cd ../..
+      
+        # Deploy to function app
+        az functionapp deployment source config-zip \
+          --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} \
+          --name ${{ vars.AZURE_FUNCTIONAPP_NAME }} \
+          --src deployment.zip
+    # deploy function
+    # - name: 'Run Azure Functions Action'
+    #   uses: Azure/functions-action@v1
+    #   id: fa
+    #   with:
+    #     app-name: 'fa-constructix-onlineservices-getsuppliers'
+    #     slot-name: 'production'
+    #     package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
 
 
 
