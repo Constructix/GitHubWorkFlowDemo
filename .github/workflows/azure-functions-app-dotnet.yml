@@ -61,10 +61,10 @@ jobs:
         echo "Current directory: $(pwd)"
         echo "Listing Deployment folder:"
         ls -la ./Deployment/
-        echo "Listing Deployment/Armtemplates folder (if exists):"
-        ls -la ./Deployment/Armtemplates/ || echo "Armtemplates folder not found"
-        echo "Listing Deployment/armtemplates folder (if exists):"
-        ls -la ./Deployment/armtemplates/ || echo "armtemplates folder not found"
+        echo "Listing Deployment/ArmTemplates folder (if exists):"
+        ls -la ./Deployment/ArmTemplates/ || echo "ArmTemplates folder not found"
+        echo "Listing Deployment/ArmTemplates folder (if exists):"
+        ls -la ./Deployment/ArmTemplates/ || echo "ArmTemplates folder not found"
     - name: Log into Azure
       uses: azure/login@v1
       with: 
@@ -82,8 +82,8 @@ jobs:
       with:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         resourceGroupName: ${{ secrets.AZURE_RG }}
-        template: ./Deployment/Armtemplates/CreateFunction.bicep
-        parameters: ./Deployment/Armtemplates/function-dev-parameters.json
+        template: ./Deployment/ArmTemplates/CreateFunction.bicep
+        parameters: ./Deployment/ArmTemplates/function-dev-parameters.json
         failOnStdErr: false
     - name: 'Prepare deployment package'
       run: |
