@@ -93,11 +93,11 @@ jobs:
         dotnet publish -c Release -o ./output
         cd output
         # Flex Consumption requires the zip to contain the function artifacts at root level
-        zip -r ${{ github.workspace }}/publish.zip *
+        zip -r ${{ github.workspace }}/${{ env.PACKAGE_NAME }} *
         #verify the zip file
         echo "Listing contents of the zip file:"
-        echo "✅ Deployment package created at: ${{ github.workspace }}/publish.zip"
-        ls -la ${{ github.workspace }}/publish.zip
+        echo "✅ Deployment package created at: ${{ github.workspace }}/${{ env.PACKAGE_NAME }}"
+        ls -la ${{ github.workspace }}/${{ env.PACKAGE_NAME }}
 
     - name: 'Debug - List files'
       run: |
