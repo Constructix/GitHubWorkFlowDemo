@@ -93,6 +93,13 @@ jobs:
         cd output
         # Flex Consumption requires the zip to contain the function artifacts at root level
         zip -r ../../publish.zip *
+
+    - name: 'Debug - List files'
+      run: |
+        echo "Current directory: $(pwd)"
+        echo "Listing Deployment folder:"
+        ls -la ./       
+        
     - name: 'Run Azure Functions Action'
       uses: Azure/functions-action@v1
       with:
