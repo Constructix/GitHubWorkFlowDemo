@@ -92,7 +92,11 @@ jobs:
         dotnet publish -c Release -o ./output
         cd output
         # Flex Consumption requires the zip to contain the function artifacts at root level
-        zip -r ../../publish.zip *
+        zip -r ${{ github.workspace }}/publish.zip *
+        #verify the zip file
+        echo "Listing contents of the zip file:"
+        echo "✅ Deployment package created at: ${{ github.workspace }}/publish.zip"
+        ls -la ${{ github.workspace }}/publish.zip
 
     - name: 'Debug - List files'
       run: |
@@ -103,8 +107,8 @@ jobs:
     - name: 'Run Azure Functions Action'
       uses: Azure/functions-action@v1
       with:
-        app-name: 'fa-constructix-onlineservices-getsuppliers'
-        package: './publish.zip'
+        app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+        package: ${{ github.workspace }}/publish.zip
         # Additional parameters for Flex Consumption
         remote-build: false
 
