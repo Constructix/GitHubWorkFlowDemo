@@ -57,18 +57,18 @@ jobs:
     - name: 'Run Unit tests'
       run: dotnet test  './${{ env.AZURE_FUNCTIONAPP_TEST_PATH }}'
 
-    - name: Log into Azure
-      uses: azure/login@v1
-      with: 
-        creds:  ${{ secrets.AZURE_CREDENTIALS }}    
-    - name: Deploy Bicep File
-      uses: azure/arm-deploy@v1
-      with:
-        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
-        resourceGroupName: ${{ secrets.AZURE_RG }}
-        template: ./main.bicep
-        parameters: 'storagePrefix=rjmystore storageSKU=Standard_LRS'
-        failOnStdErr: false
+    # - name: Log into Azure
+    #   uses: azure/login@v1
+    #   with: 
+    #     creds:  ${{ secrets.AZURE_CREDENTIALS }}    
+    # - name: Deploy Bicep File
+    #   uses: azure/arm-deploy@v1
+    #   with:
+    #     subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+    #     resourceGroupName: ${{ secrets.AZURE_RG }}
+    #     template: ./main.bicep
+    #     parameters: 'storagePrefix=rjmystore storageSKU=Standard_LRS'
+    #     failOnStdErr: false
     - name: Deploy Function  File
       uses: azure/arm-deploy@v1
       with:
