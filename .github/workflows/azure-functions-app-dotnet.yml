@@ -103,7 +103,7 @@ jobs:
     - name: 'Run Azure Functions Action'
       uses: Azure/functions-action@v1
       with:
-        app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+        app-name: 'fa-constructix-onlineservices-getsuppliers'
         package: './publish.zip'
         # Additional parameters for Flex Consumption
         remote-build: false
