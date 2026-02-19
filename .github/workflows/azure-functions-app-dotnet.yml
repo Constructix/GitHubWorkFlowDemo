@@ -28,8 +28,9 @@ env:
   AZURE_FUNCTIONAPP_TEST_PATH: '.\tests\Constructix.OnLineServices.Functions.GetSuppliers.Tests\Constructix.OnLineServices.Functions.GetSuppliers.Tests.csproj'
   DOTNET_VERSION: '10.0.x'                   # set this to the dotnet version to use (e.g. '2.1.x', '3.1.x', '5.0.x')
   AZURE_RESOURCE_GROUP: 'rg-constructix-dev-ae-01'
-
-
+  AZURE_STORAGE_ACCOUNT : 'sadevaeconstructixs01'
+  AZURE_STORAGE_CONTAINER: 'app-package-testdev'
+  PACKAGE_NAME: 'function-package.zip'
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest #windows-latest # For Linux, use ubuntu-latest
@@ -103,15 +104,83 @@ jobs:
         echo "Current directory: $(pwd)"
         echo "Listing Deployment folder:"
         ls -la ./       
+    
+    - name: 'Upload package to Azure Blob Storage'
+      run: |
+        # Get storage account connection string
+        CONNECTION_STRING=$(az storage account show-connection-string \
+          --name ${{ env.AZURE_STORAGE_ACCOUNT }} \
+          --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+          --query connectionString -o tsv)
         
-    - name: 'Run Azure Functions Action'
-      uses: Azure/functions-action@v1
-      with:
-        app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
-        package: ${{ github.workspace }}/publish.zip
-        # Additional parameters for Flex Consumption
-        remote-build: false
+        # Generate SAS token with 24 hour expiry
+        END_DATE=$(date -u -d "24 hours" '+%Y-%m-%dT%H:%MZ')
+        SAS_TOKEN=$(az storage container generate-sas \
+          --account-name ${{ env.AZURE_STORAGE_ACCOUNT }} \
+          --name ${{ env.AZURE_STORAGE_CONTAINER }} \
+          --permissions acdlrw \
+          --expiry $END_DATE \
+          --connection-string "$CONNECTION_STRING" \
+          -o tsv)
+        
+        # Upload package to blob storage
+        az storage blob upload \
+          --account-name ${{ env.AZURE_STORAGE_ACCOUNT }} \
+          --container-name ${{ env.AZURE_STORAGE_CONTAINER }} \
+          --file ${{ github.workspace }}/${{ env.PACKAGE_NAME }} \
+          --name ${{ env.PACKAGE_NAME }} \
+          --connection-string "$CONNECTION_STRING" \
+          --overwrite
+        
+        # Generate URL with SAS token
+        BLOB_URL="https://${{ env.AZURE_STORAGE_ACCOUNT }}.blob.core.windows.net/${{ env.AZURE_STORAGE_CONTAINER }}/${{ env.PACKAGE_NAME }}?$SAS_TOKEN"
+        
+        # Save URL for next step
+        echo "BLOB_URL=$BLOB_URL" >> $GITHUB_ENV
+        
+        echo "✅ Package uploaded to: $BLOB_URL"    
+    - name: 'Update Function App with Package Reference'
+      run: |
+        # Update the function app configuration to use the new package
+        az functionapp config set \
+          --name ${{ env.AZURE_FUNCTIONAPP_NAME }} \
+          --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+          --linux-fx-version "DOTNET-ISOLATED|10.0" \
+          --slot-settings "WEBSITE_RUN_FROM_PACKAGE=${{ env.BLOB_URL }}"
+        
+        # Alternative: Update the deployment package directly
+        az functionapp deployment source config-zip \
+          --name ${{ env.AZURE_FUNCTIONAPP_NAME }} \
+          --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+          --src ${{ github.workspace }}/${{ env.PACKAGE_NAME }} \
+          --build-remote false
+        
+        echo "✅ Function app updated with new package"
 
+    - name: 'Update application settings'
+      run: |
+        # Update the function app configuration to use the new package
+        az functionapp config set \
+          --name ${{ env.AZURE_FUNCTIONAPP_NAME }} \
+          --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+          --linux-fx-version "DOTNET-ISOLATED|10.0" \
+          --slot-settings "WEBSITE_RUN_FROM_PACKAGE=${{ env.BLOB_URL }}"
+        
+        # Alternative: Update the deployment package directly
+        az functionapp deployment source config-zip \
+          --name ${{ env.AZURE_FUNCTIONAPP_NAME }} \
+          --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+          --src ${{ github.workspace }}/${{ env.PACKAGE_NAME }} \
+          --build-remote false
+        
+        echo "✅ Function app updated with new package"
+    - name: 'Restart Function App'
+      run: |
+        az functionapp restart \
+          --name ${{ env.AZURE_FUNCTIONAPP_NAME }} \
+          --resource-group ${{ env.AZURE_RESOURCE_GROUP }}
+        
+        echo "✅ Function app restarted"
     # deploy function
     # - name: 'Run Azure Functions Action'
     #   uses: Azure/functions-action@v1
