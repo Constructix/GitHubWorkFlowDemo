@@ -56,7 +56,15 @@ jobs:
         popd
     - name: 'Run Unit tests'
       run: dotnet test  './${{ env.AZURE_FUNCTIONAPP_TEST_PATH }}'
-
+    - name: 'Debug - List files'
+      run: |
+        echo "Current directory: $(pwd)"
+        echo "Listing Deployment folder:"
+        ls -la ./Deployment/
+        echo "Listing Deployment/Armtemplates folder (if exists):"
+        ls -la ./Deployment/Armtemplates/ || echo "Armtemplates folder not found"
+        echo "Listing Deployment/armtemplates folder (if exists):"
+        ls -la ./Deployment/armtemplates/ || echo "armtemplates folder not found"
     - name: Log into Azure
       uses: azure/login@v1
       with: 
