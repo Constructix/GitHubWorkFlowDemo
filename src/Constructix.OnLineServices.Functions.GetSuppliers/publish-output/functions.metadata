@@ -1,0 +1,28 @@
+[
+  {
+    "name": "GetSuppliers",
+    "scriptFile": "Constructix_OnLineServices_Functions_GetSuppliers.dll",
+    "entryPoint": "Constructix.OnLineServices.Functions.GetSuppliers.GetSuppliers.Run",
+    "language": "dotnet-isolated",
+    "properties": {
+      "IsCodeless": false
+    },
+    "bindings": [
+      {
+        "name": "req",
+        "direction": "In",
+        "type": "httpTrigger",
+        "authLevel": "Function",
+        "methods": [
+          "get"
+        ],
+        "properties": {}
+      },
+      {
+        "name": "$return",
+        "type": "http",
+        "direction": "Out"
+      }
+    ]
+  }
+]
