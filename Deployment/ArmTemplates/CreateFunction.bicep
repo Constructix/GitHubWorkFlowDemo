@@ -68,7 +68,7 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2022-05-01' = {
   dependsOn: [hostingPlan]
 }
 
-resource storageAccounts_sadevaeconstructixs01_name_default 'Microsoft.Storage/storageAccounts/blobServices@2025-01-01' = {
+resource blobStorageAccountResource 'Microsoft.Storage/storageAccounts/blobServices@2025-01-01' = {
   parent: storageAccount
   name: 'default'
   sku: {
@@ -87,7 +87,7 @@ resource storageAccounts_sadevaeconstructixs01_name_default 'Microsoft.Storage/s
 }
 
 resource storageAccounts_sadevaeconstructixs01_name_default_app_package_dev 'Microsoft.Storage/storageAccounts/blobServices/containers@2025-01-01' = {
-  parent: storageAccount
+  parent: blobStorageAccountResource
   name: 'app-package-dev'
   properties: {
     immutableStorageWithVersioning: {
@@ -98,7 +98,7 @@ resource storageAccounts_sadevaeconstructixs01_name_default_app_package_dev 'Mic
     publicAccess: 'None'
   }
   dependsOn: [
-    storageAccount,storageAccounts_sadevaeconstructixs01_name_default
+    storageAccount
   ]
 }
 
