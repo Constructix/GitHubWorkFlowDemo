@@ -29,7 +29,7 @@ env:
   DOTNET_VERSION: '10.0.x'                   # set this to the dotnet version to use (e.g. '2.1.x', '3.1.x', '5.0.x')
   AZURE_RESOURCE_GROUP: 'rg-constructix-dev-ae-01'
   AZURE_STORAGE_ACCOUNT : 'sadevaeconstructixs01'
-  AZURE_STORAGE_CONTAINER: 'app-package-testdev'
+  AZURE_STORAGE_CONTAINER: 'app-package-dev'
   PACKAGE_NAME: 'function-package.zip'
 jobs:
   build-and-deploy:

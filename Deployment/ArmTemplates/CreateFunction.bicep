@@ -68,6 +68,42 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2022-05-01' = {
   dependsOn: [hostingPlan]
 }
 
+resource storageAccounts_sadevaeconstructixs01_name_default 'Microsoft.Storage/storageAccounts/blobServices@2025-01-01' = {
+  parent: storageAccount
+  name: 'default'
+  sku: {
+    name: 'Standard_LRS'
+    tier: 'Standard'
+  }
+  properties: {
+    cors: {
+      corsRules: []
+    }
+    deleteRetentionPolicy: {
+      allowPermanentDelete: false
+      enabled: false
+    }
+  }
+}
+
+resource storageAccounts_sadevaeconstructixs01_name_default_app_package_dev 'Microsoft.Storage/storageAccounts/blobServices/containers@2025-01-01' = {
+  parent: storageAccount
+  name: 'app-package-dev'
+  properties: {
+    immutableStorageWithVersioning: {
+      enabled: false
+    }
+    defaultEncryptionScope: '$account-encryption-key'
+    denyEncryptionScopeOverride: false
+    publicAccess: 'None'
+  }
+  dependsOn: [
+    storageAccount,storageAccounts_sadevaeconstructixs01_name_default
+  ]
+}
+
+
+
 resource name_resource 'Microsoft.Web/sites@2023-12-01' = {
   name: name
   kind: 'functionapp,linux'
